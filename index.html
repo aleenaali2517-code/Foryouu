@@ -1,0 +1,742 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little Surprise For You ❤️</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Georgia, serif;
+  background: #100608;
+  color: #fff0f0;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+.screen {
+  display: none;
+  min-height: 100vh;
+  width: 100%;
+  padding: 35px 20px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.screen.active {
+  display: flex;
+}
+
+h1 {
+  font-size: clamp(30px, 7vw, 48px);
+  margin-bottom: 18px;
+  color: #ffd5d9;
+}
+
+p {
+  line-height: 1.7;
+}
+
+button {
+  border: none;
+  padding: 13px 30px;
+  border-radius: 30px;
+  background: #a51f39;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 10px;
+  transition: .3s;
+  box-shadow: 0 5px 20px #a51f3944;
+}
+
+button:hover {
+  transform: scale(1.06);
+  background: #d13b58;
+}
+
+input {
+  padding: 14px 18px;
+  width: min(280px, 85%);
+  border: 1px solid #bd5267;
+  border-radius: 25px;
+  background: #260d14;
+  color: white;
+  text-align: center;
+  font-size: 16px;
+  outline: none;
+  margin: 20px 0 10px;
+}
+
+input::placeholder {
+  color: #d9a3ad;
+}
+
+.message {
+  color: #ffc1cc;
+  min-height: 28px;
+  margin-top: 12px;
+}
+
+/* FIRST PAGE */
+
+#page1 {
+  background:
+    radial-gradient(circle at top, #651526, transparent 55%),
+    linear-gradient(145deg, #17060b, #3b0c19, #100608);
+}
+
+.lock {
+  font-size: 65px;
+  margin-bottom: 15px;
+}
+
+.hint {
+  color: #e7aab5;
+  font-size: 14px;
+}
+
+/* Floating hearts on first page */
+
+.heart {
+  position: absolute;
+  color: #090407;
+  font-size: 22px;
+  animation: floatHeart 7s linear infinite;
+  opacity: .7;
+  pointer-events: none;
+}
+
+@keyframes floatHeart {
+  0% {
+    transform: translateY(110vh) rotate(0deg);
+    opacity: 0;
+  }
+  20% { opacity: .8; }
+  100% {
+    transform: translateY(-15vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* YES / NO PAGE */
+
+#page2 {
+  background: linear-gradient(145deg, #17060b, #4b1020, #18070d);
+}
+
+.button-group {
+  margin-top: 25px;
+}
+
+#noBtn {
+  background: #32131c;
+  border: 1px solid #a94a60;
+}
+
+/* ENVELOPE PAGE */
+
+#page3 {
+  background: radial-gradient(circle, #5b1426, #18070d 75%);
+}
+
+.envelope {
+  position: relative;
+  width: 260px;
+  height: 170px;
+  background: #a52b45;
+  margin: 55px auto 35px;
+  border-radius: 5px;
+  box-shadow: 0 15px 45px #0008;
+  cursor: pointer;
+}
+
+.envelope::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-left: 130px solid transparent;
+  border-right: 130px solid transparent;
+  border-top: 100px solid #d34c66;
+  transform-origin: top;
+  transition: transform 1s;
+  z-index: 3;
+}
+
+.envelope::after {
+  content: "♥";
+  position: absolute;
+  top: 65px;
+  left: 0;
+  right: 0;
+  font-size: 35px;
+  color: #ffe2e6;
+  z-index: 4;
+}
+
+.envelope.open::before {
+  transform: rotateX(180deg);
+}
+
+.envelope-label {
+  color: #ffe0e5;
+  font-size: 14px;
+}
+
+/* LETTER PAGE */
+
+#page4 {
+  display: none;
+  background:
+    radial-gradient(ellipse at center, #35101b 0%, #16070c 75%);
+  padding: 45px 18px;
+}
+
+#page4.active {
+  display: block;
+}
+
+.letter-container {
+  position: relative;
+  max-width: 720px;
+  width: 100%;
+  margin: auto;
+  padding: 30px 25px;
+  background: #1b090f;
+  border: 1px solid #873044;
+  border-radius: 12px;
+  box-shadow: 0 0 35px #a51f3933;
+  text-align: left;
+}
+
+.letter-container h2 {
+  text-align: center;
+  color: #ffb8c4;
+  margin-bottom: 28px;
+  font-size: 25px;
+}
+
+.letter-container p {
+  margin: 17px 0;
+  color: #f8dce1;
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+.letter-container strong {
+  color: #ffb2c0;
+}
+
+.letter-container em {
+  color: #e9a2b1;
+}
+
+.continue-btn {
+  display: block;
+  margin: 30px auto 5px;
+}
+
+/* Rose decorations */
+
+.rose-vine {
+  position: fixed;
+  top: 0;
+  width: 90px;
+  height: 100vh;
+  opacity: .8;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.rose-left { left: 0; }
+.rose-right { right: 0; transform: scaleX(-1); }
+
+.letter-container {
+  z-index: 1;
+}
+
+/* SECOND YES / NO PAGE */
+
+#page5 {
+  background: linear-gradient(145deg, #17060b, #4b1020, #18070d);
+}
+
+/* MEMORIES PAGE */
+
+#page6 {
+  background: linear-gradient(150deg, #16060b, #49101f, #17060b);
+}
+
+.memories-title {
+  color: #ffd0d8;
+  margin-bottom: 12px;
+}
+
+.memories-subtitle {
+  color: #e8a9b5;
+  margin-bottom: 30px;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+  gap: 20px;
+  width: min(650px, 100%);
+  margin: 15px auto 30px;
+}
+
+.polaroid {
+  background: #fff5f0;
+  color: #4b1723;
+  padding: 10px 10px 17px;
+  transform: rotate(-2deg);
+  box-shadow: 0 8px 20px #0007;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.polaroid:nth-child(even) {
+  transform: rotate(2deg);
+}
+
+.polaroid:hover {
+  transform: scale(1.06) rotate(0);
+}
+
+.polaroid img {
+  width: 100%;
+  height: 165px;
+  object-fit: cover;
+  background: #e8cbd0;
+  display: block;
+}
+
+.polaroid p {
+  font-size: 13px;
+  margin-top: 12px;
+  color: #6b2637;
+}
+
+.memory-note {
+  color: #ffd4dc;
+  line-height: 2;
+  margin: 15px 0;
+}
+
+/* Enlarged photo */
+
+#photoViewer {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: #000e;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+#photoViewer img {
+  max-width: 95%;
+  max-height: 80vh;
+  border: 8px solid white;
+  box-shadow: 0 0 30px #a51f39;
+}
+
+/* FINAL PAGE */
+
+#page7 {
+  background:
+    radial-gradient(circle at center, #67152b, #210810 70%);
+}
+
+.final-heart {
+  font-size: 65px;
+  animation: heartbeat 1.2s infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.18); }
+}
+
+.final-message {
+  color: #ffd1da;
+  font-size: clamp(25px, 6vw, 42px);
+  line-height: 1.6;
+  margin: 20px 0;
+}
+
+.kisses {
+  font-size: 35px;
+  animation: kissFloat 3s infinite ease-in-out;
+}
+
+@keyframes kissFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+@media (max-width: 500px) {
+  .rose-vine { width: 35px; opacity: .45; }
+  .letter-container { padding: 25px 18px; }
+  .letter-container p { font-size: 15px; }
+  .gallery { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1: PASSWORD -->
+
+<section class="screen active" id="page1">
+  <div class="lock">🔐</div>
+  <h1>A Little Secret...</h1>
+  <p>Someone has prepared something special for you. ❤️</p>
+  <p class="hint">Who is your special one?</p>
+
+  <input type="password" id="password" placeholder="Enter the secret password">
+
+  <button onclick="checkPassword()">Unlock ❤️</button>
+  <p class="message" id="passwordMessage"></p>
+</section>
+
+<!-- PAGE 2: YES OR NO -->
+
+<section class="screen" id="page2">
+  <h1>So I'm your special one right??? 😉</h1>
+  <p>You got me. ❤️</p>
+  <h2 style="margin-top:25px;color:#ffd0d8;">
+    Do you want to know what is waiting for you??
+  </h2>
+
+  <div class="button-group">
+    <button onclick="goToPage(3)">YES 💗</button>
+    <button id="noBtn" onclick="sayNo()">NO 🙄</button>
+  </div>
+  <p class="message" id="noMessage"></p>
+</section>
+
+<!-- PAGE 3: ENVELOPE -->
+
+<section class="screen" id="page3">
+  <h1>A letter from me… 💌</h1>
+  <p>There's something I've been wanting to tell you.</p>
+
+  <div class="envelope" id="envelope" onclick="openEnvelope()"></div>
+
+  <p class="envelope-label">A little something, just for you. ❤️</p>
+  <button onclick="openEnvelope()">OPEN LETTER 💌</button>
+</section>
+
+<!-- PAGE 4: LETTER STARTS IN PART 2 -->
+  
+<!-- PAGE 4: THE LETTER -->
+
+<section class="screen" id="page4">
+
+<svg class="rose-vine rose-left" viewBox="0 0 100 800" preserveAspectRatio="none">
+  <path d="M15 0 C80 130 5 220 65 330 S15 550 65 800"
+        fill="none" stroke="#31542c" stroke-width="5"/>
+  <g fill="#3b662f" stroke="#182d19" stroke-width="1">
+    <ellipse cx="35" cy="100" rx="22" ry="10" transform="rotate(-35 35 100)"/>
+    <ellipse cx="60" cy="210" rx="23" ry="10" transform="rotate(35 60 210)"/>
+    <ellipse cx="30" cy="350" rx="22" ry="10" transform="rotate(-35 30 350)"/>
+    <ellipse cx="65" cy="490" rx="22" ry="10" transform="rotate(35 65 490)"/>
+    <ellipse cx="30" cy="650" rx="22" ry="10" transform="rotate(-35 30 650)"/>
+  </g>
+  <g fill="#a51f39">
+    <circle cx="55" cy="155" r="17"/>
+    <circle cx="40" cy="420" r="18"/>
+    <circle cx="58" cy="700" r="17"/>
+  </g>
+  <g fill="#e66b7e">
+    <circle cx="48" cy="150" r="7"/>
+    <circle cx="34" cy="415" r="7"/>
+    <circle cx="52" cy="695" r="7"/>
+  </g>
+</svg>
+
+<svg class="rose-vine rose-right" viewBox="0 0 100 800" preserveAspectRatio="none">
+  <path d="M15 0 C80 130 5 220 65 330 S15 550 65 800"
+        fill="none" stroke="#31542c" stroke-width="5"/>
+  <g fill="#3b662f" stroke="#182d19" stroke-width="1">
+    <ellipse cx="35" cy="100" rx="22" ry="10" transform="rotate(-35 35 100)"/>
+    <ellipse cx="60" cy="210" rx="23" ry="10" transform="rotate(35 60 210)"/>
+    <ellipse cx="30" cy="350" rx="22" ry="10" transform="rotate(-35 30 350)"/>
+    <ellipse cx="65" cy="490" rx="22" ry="10" transform="rotate(35 65 490)"/>
+    <ellipse cx="30" cy="650" rx="22" ry="10" transform="rotate(-35 30 650)"/>
+  </g>
+  <g fill="#a51f39">
+    <circle cx="55" cy="155" r="17"/>
+    <circle cx="40" cy="420" r="18"/>
+    <circle cx="58" cy="700" r="17"/>
+  </g>
+  <g fill="#e66b7e">
+    <circle cx="48" cy="150" r="7"/>
+    <circle cx="34" cy="415" r="7"/>
+    <circle cx="52" cy="695" r="7"/>
+  </g>
+</svg>
+
+<div class="letter-container">
+
+<h2>To my special one, 🖤🍒</h2>
+
+<p>Soooo… you actually unlocked the website and made it this far? 👀</p>
+
+<p>First of all, congratulations, genius. And secondly… don't smile too much while reading this, okay? 😉❤️</p>
+
+<p>You know what's funny? Out of all the people in this world, somehow, you became <em>my person</em>. The one who can make me smile at the most random moments, the one who randomly pops into my mind when I'm doing absolutely nothing, and the one who makes ordinary little moments feel a little more special.</p>
+
+<p>And honestly? I kinda hate how effortlessly you do that. Like, excuse me sir, who gave you permission to live rent-free in my head? 😭🤌🏻</p>
+
+<p>But hey, I also know I'm not always the easiest person to deal with. Sometimes I get upset over little things, sometimes I start arguments, sometimes I overthink, and sometimes I might say something without realizing that it could hurt you.</p>
+
+<p><strong>And if I've ever made you feel sad, hurt you with my words, or made you feel like you weren't important to me, I'm genuinely sorry.</strong> 🥹❤️ That was never what I wanted. I might not always know how to express what I feel, but that doesn't mean I don't care. Your feelings matter to me too, and I never want you to feel like you have to hide them from me.</p>
+
+<p>And yes, I might annoy you, tease you, argue with you over the tiniest things, and then act like I did absolutely nothing wrong. 😭🤚🏻 But underneath all that, there's someone who genuinely cares about you and wants to see you happy.</p>
+
+<p>I don't know what the future has planned for us, and I'm not here to make a thousand promises. I just know that right now, you're someone special to me. I'm glad you're in my life, and I hope I can make you feel as special as you make me feel. ❤️</p>
+
+<p>So, if you ever wonder whether someone thinks about you, smiles because of you, or secretly wishes you the best in everything…</p>
+
+<p>Well, now you know. It's me, dummy. 🫵🏻😭💗</p>
+
+<p>And don't let this letter get to your head, okay? You're already annoying enough. 🙄💋</p>
+
+<p><strong>One last thing…</strong></p>
+
+<p>Whatever little arguments we have, I hope we never forget to listen to each other, understand each other, and choose kindness even when we're upset. We don't have to be perfect. We just have to be honest with each other. 🫶🏻</p>
+
+<p>And if you're smiling right now, just know that was the whole plan. And if you're blushing?</p>
+
+<p><strong>GOOD. MISSION SUCCESSFUL.</strong> 😌❤️‍🔥</p>
+
+<p>And hey, if I've ever annoyed you too much, started unnecessary arguments, or hurt you even a little, I'm sorryyy, okay? 🥹❤️ I'm still your little troublemaker, so please forgive me. You can complain about me all you want, but unfortunately, you're stuck with my dramatic self now. 🤭💋 <strong>NO REFUNDS, NO EXCHANGES. TERMS AND CONDITIONS APPLY.</strong> 😭🤚🏻🍒</p>
+
+<p><em>Yours in the most suspiciously affectionate way,</em></p>
+
+<p style="text-align:center;"><strong>Aleena ♡</strong></p>
+
+<p><em>P.S. I have another little surprise for you… but you'll have to keep going to find it. 😉🍒</em></p>
+
+<button class="continue-btn" onclick="goToPage(5)">CONTINUE ❤️</button>
+
+</div>
+</section>
+
+<!-- PAGE 5: SECOND YES / NO -->
+
+<section class="screen" id="page5">
+  <h1>Waittt… one more thing! 🥹</h1>
+  <p style="font-size:22px;margin-top:20px;">
+    Do you want to continue??
+  </p>
+
+  <div class="button-group">
+    <button onclick="goToPage(6)">YES 💗</button>
+    <button onclick="secondNo()">NO 🙄</button>
+  </div>
+
+  <p class="message" id="secondNoMessage"></p>
+</section>
+
+<!-- PAGE 6: LITTLE MEMORIES -->
+
+<section class="screen" id="page6">
+
+  <h1 class="memories-title">Little Memories 📸</h1>
+  <p class="memories-subtitle">
+    Some moments deserve to stay forever. ❤️
+  </p>
+
+  <div class="gallery">
+
+    <div class="polaroid" onclick="viewPhoto(this)">
+      <img src="photos/photo1.jpg" alt="Memory 1">
+      <p>One of my favourite moments ♡</p>
+    </div>
+
+    <div class="polaroid" onclick="viewPhoto(this)">
+      <img src="photos/photo2.jpg" alt="Memory 2">
+      <p>A little memory to keep forever ♡</p>
+    </div>
+
+    <div class="polaroid" onclick="viewPhoto(this)">
+      <img src="photos/photo3.jpg" alt="Memory 3">
+      <p>And many more to come ♡</p>
+    </div>
+
+  </div>
+
+  <div class="memory-note">
+    <p>I want to tell you one more thing…</p>
+    <p>Not here, baby. 🤭</p>
+    <p>Come to the next page. 💋🍒</p>
+  </div>
+
+  <button onclick="goToPage(7)">NEXT 💌</button>
+
+</section>
+
+<!-- PHOTO VIEWER -->
+
+<div id="photoViewer" onclick="closePhoto()">
+  <img id="enlargedPhoto" src="" alt="Memory">
+</div>
+
+<!-- PAGE 7: FINAL SURPRISE -->
+
+<section class="screen" id="page7">
+
+  <div class="final-heart">❤️</div>
+
+  <p style="font-size:20px;color:#ffd5dc;">
+    Thank you for being in my life. ❤️
+  </p>
+
+  <div class="final-message">
+    I love you till my last breath…
+  </div>
+
+  <p style="font-size:25px;color:#ffc1cc;">
+    and I miss you. 🥹💋
+  </p>
+
+  <div class="kisses" style="margin-top:35px;">
+    😘 💋 😘
+  </div>
+
+  <p style="margin-top:25px;color:#eab4bf;">
+    With all my love, always. ❤️
+  </p>
+
+</section>
+  
+<script>
+
+// PASSWORD CHECK
+
+function checkPassword() {
+  const password = document.getElementById("password").value;
+  const message = document.getElementById("passwordMessage");
+
+  if (password.toLowerCase().trim() === "aleena") {
+    message.textContent = "You got it! Welcome, my special one. ❤️";
+
+    setTimeout(() => {
+      goToPage(2);
+    }, 900);
+
+  } else {
+    message.textContent =
+      "Oopsie… that's not the secret, silly. Try again. 🥹🔐";
+  }
+}
+
+
+// PAGE NAVIGATION
+
+function goToPage(pageNumber) {
+  document.querySelectorAll(".screen").forEach(screen => {
+    screen.classList.remove("active");
+  });
+
+  document.getElementById("page" + pageNumber).classList.add("active");
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+
+// FIRST NO BUTTON
+
+function sayNo() {
+  document.getElementById("noMessage").textContent =
+    "Nice try. Now press YES. 😌💋";
+}
+
+
+// OPEN ENVELOPE
+
+function openEnvelope() {
+  const envelope = document.getElementById("envelope");
+
+  envelope.classList.add("open");
+
+  setTimeout(() => {
+    goToPage(4);
+  }, 900);
+}
+
+
+// SECOND NO BUTTON
+
+function secondNo() {
+  document.getElementById("secondNoMessage").textContent =
+    "Nice try. Now press YES. 😌💋";
+}
+
+
+// ENLARGE PHOTOS
+
+function viewPhoto(element) {
+  const image = element.querySelector("img");
+
+  if (!image || !image.src) return;
+
+  document.getElementById("enlargedPhoto").src = image.src;
+  document.getElementById("photoViewer").style.display = "flex";
+}
+
+
+// CLOSE ENLARGED PHOTO
+
+function closePhoto() {
+  document.getElementById("photoViewer").style.display = "none";
+}
+
+
+// FLOATING BLACK HEARTS ON FIRST PAGE ONLY
+
+function createHeart() {
+  const heart = document.createElement("div");
+
+  heart.className = "heart";
+  heart.textContent = "♥";
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+  heart.style.fontSize = (12 + Math.random() * 20) + "px";
+
+  document.getElementById("page1").appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 10000);
+}
+
+setInterval(createHeart, 700);
+
+</script>
+
+</body>
+</html>
+
+  
